@@ -1,0 +1,24 @@
+services:
+  postgres:
+    container_name: 'data-modeling'
+    image: 'postgres:latest'
+    environment:
+      # I should make the schema name, user name and password injectable, 
+      # but I'm not familiar with injection yet
+      - 'POSTGRES_DB=restaurant_app'
+      - 'POSTGRES_USER=user_123'
+      - 'POSTGRES_PASSWORD=password'
+      - 'PGDATA=/var/lib/postgresql/data/pgdata'
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata-data-modeling:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    ports:
+      - 8081:8080
+
+volumes:
+  pgdata-data-modeling:
+    driver: local
